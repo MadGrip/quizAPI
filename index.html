@@ -1,3 +1,35 @@
+<!--
+XXX SITE
+TODO responsive design
+TODO animations
+
+XXX Landing page
+DONE build landing page
+TODO get quiz parameters from formular
+TODO sent data to OPEN TRIVIA API
+TODO change page to Quiz page
+
+XXX Quizz
+TODO recieve data from API according to parameters
+TODO build quiz form
+TODO check if answer is correct
+TODO score
+TODO change page to result
+
+XXX Result
+TODO build result site
+TODO show score
+TODO show right answers + wrong answers
+TODO add link for new game
+
+
+
+https://dev.to/alanconstantino/5-simple-to-use-apis-for-beginners-2e0n
+
+https://opentdb.com/api_config.php
+
+
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +42,8 @@
     <h1>Quizz APP using Trivia API</h1>
 
     <body>
-        <div class="container">
-            <form method="post">
+        <div class="container" id="generate-quiz">
+            <form method="post" id="generateFrm">
                 <h3>What kind of quiz would you like?</h3>
                 <ul>
                     <li>
@@ -20,6 +52,7 @@
                     <li>
                         <input type="number" name="amount" id="amount" class="form--select" value="10" min="1" max="50">
                     </li>
+
 
                     <li>
                         <label for="category" class="form--option">Select Category:</label>
@@ -54,6 +87,7 @@
                     <option value="32">Entertainment: Cartoon</option>
                     </select>
 
+
                     <li>
                         <label for="difficulty">Select Difficulty:</label>
                     </li>
@@ -66,6 +100,7 @@
                     <option value="hard">Hard</option>
                     </select>
 
+
                     <li>
                         <label for="type">Select Type:</label>
                     </li>
@@ -77,9 +112,15 @@
                     <option value="boolean">True / False</option>
                     </select>
                 </ul>
-                <button class="button" type="submit">Generate Quiz</button>
+                <button class="button" type="button" id="generateBtn">Generate Quiz</button>
             </form>
         </div>
+
+
+        <div class="container" id="quiz">
+
+        </div>
     </body>
+    <script src="scripts.js"></script>
 
 </html>

@@ -4,6 +4,8 @@
     --blue-light: #4DA8DA;
     --blue-dark: #203647;
     --white: #EEFBFB;
+    --green: rgb(40, 255, 51);
+    --red: rgb(255, 51, 40);
 }
 htlm, body{
     margin: 0;
@@ -54,6 +56,7 @@ h1{
     margin: 0 auto;
     background-color: var(--black);
     border-radius: 10px;
+    margin-bottom: 3%;
 }
 h3{
     margin: 0;
@@ -69,7 +72,7 @@ form{
     flex-direction: column;
 }
 .button{
-    padding: .3rem 0;
+    padding: .7rem 0;
     background-color: var(--blue-light);
     opacity: .75;
     color: var(--white);
@@ -86,4 +89,47 @@ form{
     background-color: var(--blue-light);
     opacity: 1;
     cursor: pointer;
+}
+
+/* XXX quiz */
+#quiz{
+    min-height: 300px;
+    padding: .5rem 0;
+}
+.quiz--item{
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    width: 90%;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+}
+.quiz--question{
+    margin: 0;
+    text-align: center;
+    padding: .5rem .3rem .7rem .3rem;
+    font-size: 1.3rem;
+}
+.quiz--answers {
+    margin: 0;
+    width: 100%;
+}
+.quiz--answer {
+    margin: 0;
+    padding: .5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--blue-dark);
+    opacity: .7;
+    min-width: 100%;
+    text-align: center;
+    border-radius: 5px;
+}
+.quiz--answer:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.quiz--answer:nth-child(2n){
+    margin-bottom: .3rem;
+}
+.quiz--item:last-child{
+    border-bottom: none;
 }
