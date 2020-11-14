@@ -56,7 +56,7 @@ h1{
     margin: 0 auto;
     background-color: var(--black);
     border-radius: 10px;
-    margin-bottom: 3%;
+    margin: 3% auto;
 }
 h3{
     margin: 0;
@@ -84,6 +84,7 @@ form{
     letter-spacing: 1px;
     width: 85%;
     margin: 0 auto;
+    text-align: center;
 }
 .button:hover{
     background-color: var(--blue-light);
@@ -95,6 +96,7 @@ form{
 #quiz{
     min-height: 300px;
     padding: .5rem 0;
+    display: none;
 }
 .quiz--item{
     margin: 0 auto;
@@ -132,4 +134,39 @@ form{
 }
 .quiz--item:last-child{
     border-bottom: none;
+}
+
+/* XXX results*/
+.true{
+    background-color: var(--green);
+    opacity: 1;
+}
+.false{
+    background-color: var(--red);
+    opacity: 1;
+}
+.score-h4{
+    margin: 0;
+    text-align: center;
+    color: var(--blue-light);
+    font-size: 1.5rem;
+    display: none;
+}
+#score{
+    color: var(--white);
+}
+#total{
+    color: var(--white);
+}
+
+
+/* XXX JS */
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+#quiz.show{
+    display: block;
 }

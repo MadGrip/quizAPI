@@ -1,8 +1,10 @@
 //XXX get quiz settings
 const generateBtn = document.getElementById("generateBtn");
+const amount = document.getElementById("amount");
+
 
 function getQuizSettings() {
-    const formGen = document.getElementById("generateFrm");
+    const formGen = document.getElementById("generateForm");
     const amount = document.getElementById("amount").value;
     const category = document.getElementById("category").value;
     const difficulty = document.getElementById("difficulty").value;
@@ -30,10 +32,8 @@ function getQuizSettings() {
     const genURL = `https://opentdb.com/api.php?${resultStr}`;
     return genURL;
 }
-const data = [];
-//Event listeners
-generateBtn.addEventListener("click", getQuizSettings);
-generateBtn.addEventListener("click", () => {
+
+function getDataFromAPI() {
     fetch(getQuizSettings())
         .then(res => res.json())
         .then(json => {
@@ -41,9 +41,22 @@ generateBtn.addEventListener("click", () => {
         })
         .then(() => {
             joinAnswers(data);
+            setId(data);
+            setInitialScore(data);
             renderQuiz(data);
         })
         .catch(err => { throw err });
+}
+
+const data = [];
+//Event listeners
+generateBtn.addEventListener("click", getQuizSettings);
+generateBtn.addEventListener("click", getDataFromAPI);
+amount.addEventListener("keydown", function (e) {
+    e.preventDefault();
+    if (e.keyCode != 13) { return }
+    getQuizSettings();
+    getDataFromAPI();
 });
 
 
@@ -69,10 +82,17 @@ function joinAnswers(data) {
     })
 }
 
+function setId(data) {
+    data.forEach(obj => {
+        const id = data.indexOf(obj);
+        obj.id = id;
+    })
+}
+
 function renderAnswers(obj) {
     let str = "";
     obj.answers.forEach(answer => {
-        let item = `<li class="quiz--answer">${answer}</li>`;
+        let item = `<li class="quiz--answer" value="obj">${answer}</li>`;
         str += item;
     });
     return str;
@@ -81,7 +101,7 @@ function renderAnswers(obj) {
 function renderQuizItem(obj) {
     let item =
         `
-        <div class="quiz--item">
+        <div class="quiz--item" id=${obj.id}>
             <h4 class="quiz--question">${obj.question}</h4>
             <ul class="quiz--answers">
                 ${renderAnswers(obj)}
@@ -92,11 +112,62 @@ function renderQuizItem(obj) {
 }
 
 function renderQuiz(data) {
-    console.log(data);
     let items = "";
     data.forEach(obj => {
         const item = renderQuizItem(obj);
         items += item;
     })
+    items += `<div id="restart" class="button">Play again!</div>`;
     quiz.innerHTML = items;
+
+    const score = document.getElementsByClassName("score-h4")[0];
+    const generateQuiz = document.getElementById("generate-quiz");
+    score.classList.add("show");
+    generateQuiz.classList.add("hide");
+    quiz.classList.add("show");
 }
+
+
+/* XXX Results */
+let currentScore = 0;
+
+function setInitialScore(data) {
+    const currentEl = document.getElementById("score");
+    const totalEl = document.getElementById("total");
+    total = data.length;
+    currentEl.innerHTML = currentScore;
+    totalEl.innerHTML = total;
+}
+
+function updateScore() {
+    const scoreEl = document.getElementById("score");
+    currentScore = currentScore + 1;
+    scoreEl.innerText = currentScore;
+}
+
+function isClicked(el) {
+    const ul = el.parentElement;
+    let result = false;
+
+    ul.querySelector("li.false") || ul.querySelector("li.true") ? result = true : result = false;
+    return result;
+}
+
+function resolve(e) {
+    if (!e.target.matches("li")) { return }
+    const el = e.target;
+    const elText = e.target.innerText;
+    const id = e.target.parentElement.parentElement.id;
+    const currentObj = data.filter(obj => obj.id == id)[0];
+
+    if (isClicked(el) == true) { return };
+
+    if (elText == currentObj.correct_answer) {
+        el.classList.add("true");
+        updateScore();
+    } else {
+        el.classList.add("false")
+    }
+}
+
+quiz.addEventListener("click", resolve);

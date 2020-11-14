@@ -2,23 +2,27 @@
 XXX SITE
 TODO responsive design
 TODO animations
+TODO remove ------ border from last element
 
 XXX Landing page
 DONE build landing page
-TODO get quiz parameters from formular
+DONE get quiz parameters from formular
 TODO sent data to OPEN TRIVIA API
-TODO change page to Quiz page
+DONE change page to Quiz page
+DONE enter should get quiz parameters
+FIXME user should generate only 1 set of questions
 
 XXX Quizz
-TODO recieve data from API according to parameters
-TODO build quiz form
-TODO check if answer is correct
-TODO score
-TODO change page to result
+DONE recieve data from API according to parameters
+DONE build quiz form
+DONE check if answer is correct
+DONE score
+DONE change page to result
+FIXME API returns string with regEx chars instead of '' "" `` etc. that doesnt match answer even when its correct
+DONE user cannot check multiple answers
 
 XXX Result
-TODO build result site
-TODO show score
+DONE show score
 TODO show right answers + wrong answers
 TODO add link for new game
 
@@ -39,11 +43,13 @@ https://opentdb.com/api_config.php
         <link rel="stylesheet" href="style.css">
         <title>Quiz API app</title>
     </head>
-    <h1>Quizz APP using Trivia API</h1>
 
     <body>
+        <h1>Quizz APP using Trivia API</h1>
+        <h4 class="score-h4">Score: <span id="score"></span> / <span id="total"></span></h4>
+
         <div class="container" id="generate-quiz">
-            <form method="post" id="generateFrm">
+            <form id="generateForm">
                 <h3>What kind of quiz would you like?</h3>
                 <ul>
                     <li>
