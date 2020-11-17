@@ -125,6 +125,7 @@ function renderQuiz(data) {
     score.classList.add("show");
     generateQuiz.classList.add("hide");
     quiz.classList.add("show");
+    console.log(data);
 }
 
 
@@ -148,9 +149,14 @@ function updateScore() {
 function isClicked(el) {
     const ul = el.parentElement;
     let result = false;
-
     ul.querySelector("li.false") || ul.querySelector("li.true") ? result = true : result = false;
     return result;
+}
+
+function getRightAnswer(e, currentObj) {
+    const lis = Array.from(e.target.parentElement.children);
+    const answer = lis.filter(answer => answer.innerText == currentObj.correct_answer)[0];
+    answer.classList.add("right-answer");
 }
 
 function resolve(e) {
@@ -160,14 +166,27 @@ function resolve(e) {
     const id = e.target.parentElement.parentElement.id;
     const currentObj = data.filter(obj => obj.id == id)[0];
 
+    //prevents from selecting multiple answers
     if (isClicked(el) == true) { return };
 
     if (elText == currentObj.correct_answer) {
         el.classList.add("true");
         updateScore();
     } else {
-        el.classList.add("false")
+        el.classList.add("false");
+        getRightAnswer(e, currentObj);
     }
 }
 
 quiz.addEventListener("click", resolve);
+
+
+/* XXX Reset */
+const restartBtn = document.getElementById("restart");
+
+function restart() {
+
+}
+
+
+/* restartBtn.addEventListener("click", restart); */

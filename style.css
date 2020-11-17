@@ -170,3 +170,6 @@ form{
 #quiz.show{
     display: block;
 }
+.right-answer{
+    outline: 3px solid green;
+}
