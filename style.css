@@ -132,7 +132,7 @@ form{
 .quiz--answer:nth-child(2n){
     margin-bottom: .3rem;
 }
-.quiz--item:last-child{
+.quiz--item:nth-last-child(2){
     border-bottom: none;
 }
 
