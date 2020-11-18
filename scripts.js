@@ -95,10 +95,13 @@ const data = [];
 generateBtn.addEventListener("click", getQuizSettings);
 generateBtn.addEventListener("click", getDataFromAPI);
 amount.addEventListener("keydown", function (e) {
-    e.preventDefault();
-    if (e.keyCode != 13) { return }
-    getQuizSettings();
-    getDataFromAPI();
+    if (e.keyCode == 13) {
+        e.preventDefault()
+        getQuizSettings();
+        getDataFromAPI();
+    } else {
+        return
+    }
 });
 
 
