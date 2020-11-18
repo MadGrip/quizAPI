@@ -2,13 +2,13 @@
 const generateBtn = document.getElementById("generateBtn");
 const amount = document.getElementById("amount");
 
-
 function getQuizSettings() {
     const formGen = document.getElementById("generateForm");
-    const amount = document.getElementById("amount").value;
+    let amount = document.getElementById("amount").value;
     const category = document.getElementById("category").value;
     const difficulty = document.getElementById("difficulty").value;
     const type = document.getElementById("type").value;
+    if (amount > 50) { amount = 50 };
     const values = [
         { key: "amount", value: amount, sym: "=" },
         { key: "category", value: category, sym: "=" },
@@ -30,6 +30,7 @@ function getQuizSettings() {
     })
     let resultStr = result.join("&");
     const genURL = `https://opentdb.com/api.php?${resultStr}`;
+    console.log(genURL)
     return genURL;
 }
 
@@ -43,10 +44,12 @@ function decodeSpecialChars(json) {
         .replace(/&Delta;/g, "Δ")
         .replace(/&deg;/g, "°")
         .replace(/&pi;/g, "π")
-        .replace(/&#60;/g, "<")
-        .replace(/&#62;/g, ">")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
         .replace(/&#61;/g, "=")
         .replace(/&auml;/g, "ä")
+        .replace(/&Aring;/g, "Å")
+        .replace(/&aring;/g, "å")
         .replace(/&szlig;/g, "ß")
         .replace(/&euml;/g, "ë")
         .replace(/&#131;/g, "ƒ")
@@ -77,6 +80,7 @@ function getDataFromAPI() {
     fetch(getQuizSettings())
         .then(res => res.json())
         .then(json => {
+            console.log(json)
             const decoded = decodeSpecialChars(json);
             data.push(...decoded);
         })
@@ -85,7 +89,6 @@ function getDataFromAPI() {
             setId(data);
             setInitialScore(data);
             renderQuiz(data);
-            console.log(data);
         })
         .catch(err => { throw err });
 }
@@ -240,6 +243,7 @@ function restart(e) {
 
     // hide score
     const score = document.getElementsByClassName("score-h4")[0];
+    currentScore = 0;
     score.classList.remove("show")
 
     // reset values in generate form

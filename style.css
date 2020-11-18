@@ -13,6 +13,7 @@ htlm, body{
     box-sizing: border-box;
     background-color: var(--blue-dark);
     color: var(--white);
+    font-size: 16px;
 }
 ul{
     width: 80%;
@@ -39,6 +40,7 @@ input, select{
     width: 100%;
     outline: none;
     padding: .3rem 0;
+    font-size: 100%;
 }
 input[type=number]{
     width: 97%;
@@ -91,7 +93,9 @@ form{
     opacity: 1;
     cursor: pointer;
 }
-
+#comment{
+    background-color: var(--blue-dark);
+}
 /* XXX quiz */
 #quiz{
     min-height: 300px;
@@ -140,10 +144,12 @@ form{
 .true{
     background-color: var(--green);
     opacity: 1;
+    transition: background-color 0.5s;
 }
 .false{
     background-color: var(--red);
     opacity: 1;
+    transition: background-color 0.5s;
 }
 .score-h4{
     margin: 0;
@@ -172,4 +178,19 @@ form{
 }
 .right-answer{
     outline: 3px solid green;
+    transition: outline 1s;
+}
+
+                /* XXX MEDIA QUERIES */
+/* YYY 425 and bellow */
+@media (max-width: 426px){
+    h1{
+        font-size: 2rem;
+    }
+    h3{
+        font-size: 1rem;
+    }
+    .container{
+        width: 90%;
+    }
 }
