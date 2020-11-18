@@ -223,11 +223,31 @@ quiz.addEventListener("click", resolve);
 
 
 /* XXX Reset */
-const restartBtn = document.getElementById("restart");
+function restart(e) {
+    if (!e.target.matches("div#restart")) { return }
+    // empty data variable
+    data.splice(0, data.length)
 
-function restart() {
+    // delete everything in quiz form
+    const quiz = document.getElementById("quiz");
+    quiz.innerHTML = "";
 
+    // hide quiz form
+    quiz.classList.remove("show")
+
+    // hide score
+    const score = document.getElementsByClassName("score-h4")[0];
+    score.classList.remove("show")
+
+    // reset values in generate form
+    document.getElementById("amount").value = 10;
+    let category = document.getElementById("category").value = "any";
+    let difficulty = document.getElementById("difficulty").value = "any";
+    let type = document.getElementById("type").value = "any";
+
+    // show generate quiz form
+    const generateQuiz = document.getElementById("generate-quiz");
+    generateQuiz.classList.remove("hide");
 }
 
-
-/* restartBtn.addEventListener("click", restart); */
+quiz.addEventListener("click", restart); 
