@@ -33,17 +33,59 @@ function getQuizSettings() {
     return genURL;
 }
 
+function decodeSpecialChars(json) {
+    let str = JSON.stringify(json.results, null, 2);
+    let replaced = str
+        .replace(/&quot;/g, "'")
+        .replace(/&#039;/g, "'")
+        .replace(/&amp;/g, "&")
+        .replace(/&divide;/g, "/")
+        .replace(/&Delta;/g, "Δ")
+        .replace(/&deg;/g, "°")
+        .replace(/&pi;/g, "π")
+        .replace(/&#60;/g, "<")
+        .replace(/&#62;/g, ">")
+        .replace(/&#61;/g, "=")
+        .replace(/&auml;/g, "ä")
+        .replace(/&szlig;/g, "ß")
+        .replace(/&euml;/g, "ë")
+        .replace(/&#131;/g, "ƒ")
+        .replace(/&iacute;/g, "í")
+        .replace(/&Iacute;/g, "Í")
+        .replace(/&Ntilde;/g, "Ñ")
+        .replace(/&ntilde;/g, "ñ")
+        .replace(/&Ocirc;/g, "Ô")
+        .replace(/&Ouml;/g, "Ö")
+        .replace(/&ocirc;/g, "ô")
+        .replace(/&ouml;/g, "ö")
+        .replace(/&#154;/g, "š")
+        .replace(/&Uuml;/g, "Ü")
+        .replace(/&uuml;/g, "ü")
+        .replace(/&#181;/g, "µ")
+        .replace(/&Yacute;/g, "Ý")
+        .replace(/&yacute;/g, "ý")
+        .replace(/&#176;/g, "°")
+        .replace(/&#153;/g, "™")
+        .replace(/&copy;/g, "©")
+        .replace(/&reg;/g, "®")
+        .replace(/&#167;/g, "§")
+        .replace(/&#182;/g, "¶")
+    return JSON.parse(replaced)
+}
+
 function getDataFromAPI() {
     fetch(getQuizSettings())
         .then(res => res.json())
         .then(json => {
-            data.push(...json.results);
+            const decoded = decodeSpecialChars(json);
+            data.push(...decoded);
         })
         .then(() => {
             joinAnswers(data);
             setId(data);
             setInitialScore(data);
             renderQuiz(data);
+            console.log(data);
         })
         .catch(err => { throw err });
 }
@@ -125,7 +167,6 @@ function renderQuiz(data) {
     score.classList.add("show");
     generateQuiz.classList.add("hide");
     quiz.classList.add("show");
-    console.log(data);
 }
 
 
