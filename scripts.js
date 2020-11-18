@@ -30,7 +30,6 @@ function getQuizSettings() {
     })
     let resultStr = result.join("&");
     const genURL = `https://opentdb.com/api.php?${resultStr}`;
-    console.log(genURL)
     return genURL;
 }
 
@@ -80,7 +79,6 @@ function getDataFromAPI() {
     fetch(getQuizSettings())
         .then(res => res.json())
         .then(json => {
-            console.log(json)
             const decoded = decodeSpecialChars(json);
             data.push(...decoded);
         })
