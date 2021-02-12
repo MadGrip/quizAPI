@@ -1,51 +1,3 @@
-<!--
-I didn't delete this notes on purpose, so you could see how I built this site. I use VS Code extension called TODO-Tree that lets me mark text by custom tags such as XXX, YYY, DONE, BUG, FIXME, TODO etc.. and highlight it. You can see all the problems I encountered and all tasks I've accomplished during development.
-
-XXX SITE
-DONE responsive design
-DONE animations
-DONE FIXME remove ------ border from last element
-
-XXX Generate Quiz
-DONE build landing page
-DONE get quiz parameters from formular
-TODO sent data to OPEN TRIVIA API
-//Currently I'm generating string of URL adress. I know how their formular for creating quiz generates it's URL, when changing settings. For fully automation I could write script, that would sent data from my formular, fill their formular and retrieve these data, however in time of development I lack needed skills to do so, and also I think that this is overcomplicated, when I basically know how their URL generator works.
-DONE change page to Quiz page
-DONE FIXME enter should get quiz parameters
-DONE FIXME user should generate only 1 set of questions
-DONE FIXME number of questions input not responding to keyboard press
-DONE FIXME ON MOBILE DEVICE when changing other settings and then number of questions + enter it returns empty data 13 30(science: gadgets) medium multiple
-//<p> tag under main <h1>
-XXX Quiz
-DONE recieve data from API according to parameters
-DONE build quiz form
-DONE check if answer is correct
-DONE score
-DONE change page to result
-DONE FIXME API returns string with regEx chars instead of '' "" `` etc. that doesnt match answer even when its correct
-// Ive decided to stringify data from API and replacing special chars code with actual chars, then turning them back to JSON, before procesing these data further. However I din't include full table of chars, just the most used.
-
-//Ive also tried method in which I put data into HTML element and get it's value, that I then assign into data variable. In this method HTML automatically renders special char code into correct chars. However I don't like this execution, so I've abandoned it.
-
-//I could also change my match function when comparing clicked answer with correct answer. I'd need to turn clickedElement.value special characters into special character code like &amp;, so it matches values in data variable. However I came across this bug later in development and didn't want to rewrite whole function. This would be probably the best option tho.
-
-//Also I've came across a bug when one answer in data from API had space before word, which threw error when looking for correct answer. However this is bug on the side of the API and also it happened only once, so I've decided not to deal with it.
-DONE FIXME user cannot check multiple answers
-
-XXX Result
-DONE show score
-DONE show right answer when false was chosen
-DONE add link for new game
-
-
-
-https://dev.to/alanconstantino/5-simple-to-use-apis-for-beginners-2e0n
-
-https://opentdb.com/api_config.php
-
-
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,12 +10,11 @@ https://opentdb.com/api_config.php
 
     <body>
         <h1>Quizz APP using Trivia API</h1>
-        <p class="container" id="comment">Some combinations of settings doesn't provide any output because data are
-            lacking, in
-            other words, there is
-            not that many questions in database we are getting data from. This results into generating empty formular.
-            Please adjust your
-            settings accordingly.</p>
+        <div id="modal">
+          <h3>No questions retrieved from API</h3>
+          <p>Please adjust your settings</p>
+        </div>
+        
         <h4 class="score-h4">Score: <span id="score"></span> / <span id="total"></span></h4>
 
         <div class="container" id="generate-quiz">
@@ -77,7 +28,6 @@ https://opentdb.com/api_config.php
                         <input type="number" name="amount" id="amount" class="form--select" value="10" min="1" max="50"
                             oninvalid="alert('Max number is 50!');">
                     </li>
-
 
                     <li>
                         <label for="category" class="form--option">Select Category:</label>
@@ -112,19 +62,18 @@ https://opentdb.com/api_config.php
                     <option value="32">Entertainment: Cartoon</option>
                     </select>
 
-
                     <li>
                         <label for="difficulty">Select Difficulty:</label>
                     </li>
                     <li>
                         <select name="difficulty" id="difficulty">
                     </li>
+
                     <option value="any">Any Difficulty</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                     </select>
-
 
                     <li>
                         <label for="type">Select Type:</label>
@@ -140,10 +89,7 @@ https://opentdb.com/api_config.php
                 <button class="button" type="button" id="generateBtn">Generate Quiz</button>
             </form>
         </div>
-
-
         <div class="container" id="quiz">
-
         </div>
     </body>
     <script src="scripts.js"></script>
