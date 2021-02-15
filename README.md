@@ -10,7 +10,7 @@ Site is using [open trivia DB API](https://opentdb.com/api_config.php) as a data
 
 # Author
 
-  Mathias Handle
+    Mathias Handle
 
 # License
 
